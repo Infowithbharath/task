@@ -3,11 +3,15 @@ import './index.css';
 import image from "./assets/img.png"
 import img from "./assets/image.png"
 import video from "./assets/video.mp4"
+import image2 from "./assets/image3.png"
 
 
 const App = () => {
   const [position, setPosition] = useState(100); // Start off-screen to the right
+    const [menuOpen, setMenuOpen] = useState(false); // State for mobile menu
 
+
+  
   useEffect(() => {
     const animation = setInterval(() => {
       setPosition(prev => {
@@ -20,44 +24,46 @@ const App = () => {
     return () => clearInterval(animation);
   }, []);
   
+  
   return (
     <div>
       {/* Marquee version (simpler) */}
       <div className="top-bar">
-        <marquee direction="left" scrollamount="5">
+        <marquee direction="left" scrollamount="3">
           You can participate in person at <strong>Kuala Lumpur, Malaysia</strong> or <strong>Virtually</strong> from your home or office.
         </marquee>
       </div>
 
-      {/* Alternative animated version (uncomment to use) */}
-      {/* <div className="top-bar-container">
-        <div 
-          className="top-bar-content"
-          style={{ transform: `translateX(${position}%)` }}
+      <header className="header">
+        <div className="logo">ICLSMHA</div>
+        
+        {/* Hamburger Menu Button (Mobile Only) */}
+        <button 
+          className="hamburger" 
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle menu"
         >
-          You can participate in person at <strong>Kuala Lumpur, Malaysia</strong> or <strong>Virtually</strong> from your home or office.
+          {menuOpen ? '✕' : '☰'}
+        </button>
+        
+        <div className={`right-section ${menuOpen ? 'mobile-open' : ''}`}>
+          <nav className="nav">
+            <ul className="nav-list">
+              <li><a href="#" onClick={() => setMenuOpen(false)}>Home</a></li>
+              <li><a href="#" onClick={() => setMenuOpen(false)}>About Us</a></li>
+              <li><a href="#" onClick={() => setMenuOpen(false)}>Call for Papers</a></li>
+              <li><a href="#" onClick={() => setMenuOpen(false)}>Paper Submission</a></li>
+              <li><a href="#" onClick={() => setMenuOpen(false)}>Publication</a></li>
+              <li><a href="#" onClick={() => setMenuOpen(false)}>Registration</a></li>
+              <li><a href="#" onClick={() => setMenuOpen(false)}>Venue</a></li>
+              <li><a href="#" onClick={() => setMenuOpen(false)}>FAQ</a></li>
+              <li><a href="#" onClick={() => setMenuOpen(false)}>Contact</a></li>
+            </ul>
+          </nav>
+          <button className="login-btn">Login</button>
         </div>
-      </div> */}
+      </header>
 
-<header className="header">
-  <div className="logo">ICLSMHA</div>
-  <div className="right-section">
-    <nav className="nav">
-      <ul className="nav-list">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About Us</a></li>
-        <li><a href="#">Call for Papers</a></li>
-        <li><a href="#">Paper Submission</a></li>
-        <li><a href="#">Publication</a></li>
-        <li><a href="#">Registration</a></li>
-        <li><a href="#">Venue</a></li>
-        <li><a href="#">FAQ</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-    </nav>
-    <button className="login-btn">Login</button>
-  </div>
-</header>
 
       <main className="main">
        <div className="conference-banner" style={{ 
@@ -262,7 +268,7 @@ const App = () => {
       boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04)'
     }}>
       <img 
-        src="https://www.sciencemag.org/sites/default/files/styles/article_main_large/public/science_img_0.jpg" 
+        src={image2}
         alt="Conference Science" 
         style={{
           width: '100%',
@@ -874,14 +880,15 @@ const App = () => {
   {/* Who Can Attend Section */}
   <section className="conference-info" style={{
   background: 'white',
-  padding: '3rem',
-  margin: '3rem auto',
+  padding: '1.5rem',
+  margin: '1.5rem auto',
   borderRadius: '16px',
   boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
   borderTop: '6px solid #059669',
   position: 'relative',
   overflow: 'hidden',
-  maxWidth: '1400px'
+  maxWidth: '1400px',
+  width: 'calc(100% - 2rem)'
 }}>
   <div style={{
     position: 'absolute',
@@ -895,20 +902,21 @@ const App = () => {
   
   <h2 style={{
     color: '#1d4ed8',
-    fontSize: '2.2rem',
+    fontSize: '1.8rem',
     fontWeight: '800',
-    marginBottom: '2rem',
+    marginBottom: '1.5rem',
     position: 'relative',
     zIndex: 1,
-    textAlign: 'center'
+    textAlign: 'center',
+    padding: '0 1rem'
   }}>
     Who Can Attend ICLSMHA-2026?
   </h2>
   
   <div style={{
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
-    gap: '1.5rem',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+    gap: '1.2rem',
     position: 'relative',
     zIndex: 1
   }}>
@@ -965,55 +973,54 @@ const App = () => {
       <div key={index} style={{
         background: 'white',
         borderRadius: '12px',
-        padding: '1.5rem',
+        padding: '1.2rem',
         boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
         borderTop: `4px solid ${item.color}`,
         transition: 'all 0.3s ease',
         display: 'flex',
         flexDirection: 'column',
-        height: '100%',
-        ':hover': {
-          transform: 'translateY(-5px)',
-          boxShadow: `0 10px 25px rgba(0,0,0,0.1), 0 0 0 2px ${item.color}20`
-        }
+        height: '100%'
       }}>
         <div style={{
           display: 'flex',
-          alignItems: 'center',
+          alignItems: 'flex-start',
           gap: '1rem',
-          marginBottom: '1rem'
+          marginBottom: '0.8rem'
         }}>
           <div style={{
-            width: '50px',
-            height: '50px',
+            width: '40px',
+            height: '40px',
             borderRadius: '50%',
             background: `${item.color}10`,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            fontSize: '1.8rem',
-            color: item.color
+            fontSize: '1.5rem',
+            color: item.color,
+            flexShrink: 0
           }}>
             {item.icon}
           </div>
-          <h3 style={{
-            color: '#1d4ed8',
-            fontSize: '1.3rem',
-            fontWeight: '700',
-            margin: 0
-          }}>
-            {item.title}
-          </h3>
+          <div>
+            <h3 style={{
+              color: '#1d4ed8',
+              fontSize: '1.1rem',
+              fontWeight: '700',
+              margin: '0 0 0.3rem 0',
+              lineHeight: '1.3'
+            }}>
+              {item.title}
+            </h3>
+            <p style={{
+              color: '#475569',
+              lineHeight: '1.5',
+              fontSize: '0.9rem',
+              margin: 0
+            }}>
+              {item.description}
+            </p>
+          </div>
         </div>
-        <p style={{
-          color: '#475569',
-          lineHeight: '1.6',
-          fontSize: '1rem',
-          margin: 0,
-          paddingLeft: '66px'
-        }}>
-          {item.description}
-        </p>
       </div>
     ))}
   </div>
